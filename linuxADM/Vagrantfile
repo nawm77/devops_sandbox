@@ -1,0 +1,23 @@
+nodes = [
+    { :hostname => 'ubuntu1-master', :ip => '10.245.1.100', :memory => 2048, :cpu => 1, :boxname => 'spox/ubuntu-arm' },
+    # { :hostname => 'ubuntu2-worker', :ip => '10.245.1.334', :memory => 2048, :cpu => 1, :boxname => 'spox/ubuntu-arm' },
+]
+
+Vagrant.configure("2") do |config|
+    nodes.each do |node|
+        config.vm.box_check_update = false
+        config.vm.define node[:hostname] do |nodeconfig|
+            nodeconfig.vm.box = node[:boxname]
+            nodeconfig.vm.hostname = node[:hostname]
+            nodeconfig.vm.network :private_network, ip: node[:ip]
+            nodeconfig.vm.provider :vmware_desktop do |vmware|
+                vmware.gui = true
+                vmware.cpus = node[:cpu]
+                vmware.memory = node[:memory]
+                vmware.vmx["ethernet0.virtualdev"] = "vmxnet3"
+                vmware.ssh_info_public = true
+                vmware.linked_clone = false
+           end
+        end
+    end
+end

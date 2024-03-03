@@ -1,0 +1,1 @@
+vagrant status | grep -v 'host' | awk '{print $1}' | xargs -I {} sh -c 'vagrant destroy {} -f && vagrant up {}'
