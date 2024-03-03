@@ -1,0 +1,20 @@
+all:
+  hosts:
+    192.168.2.184:
+      ansible_connection: ssh
+      ansible_user: vagrant
+      ansible_ssh_private_key_file: /Users/ilyachaynichkov/devops/k8s_cluster/.vagrant/machines/node2-manager/vmware_desktop/private_key
+workers:
+  hosts:
+    192.168.2.180:
+      ansible_connection: ssh
+      ansible_user: vagrant
+      ansible_ssh_private_key_file: /Users/ilyachaynichkov/devops/k8s_cluster/.vagrant/machines/node1-master/vmware_desktop/private_key
+    192.168.2.178:
+      ansible_connection: ssh
+      ansible_user: vagrant
+      ansible_ssh_private_key_file: /Users/ilyachaynichkov/devops/k8s_cluster/.vagrant/machines/node4-worker/vmware_desktop/private_key
+    192.168.2.182:
+      ansible_connection: ssh
+      ansible_user: vagrant
+      ansible_ssh_private_key_file: /Users/ilyachaynichkov/devops/k8s_cluster/.vagrant/machines/node5-worker/vmware_desktop/private_key

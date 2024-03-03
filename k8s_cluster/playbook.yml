@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Update all packages in Ubuntu
+      become: true
+      apt:
+        # upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
+    - name: Добавление репозитория для Python 3.11 и установка Python 3.11
+      shell: |
+        sudo add-apt-repository ppa:deadsnakes/ppa -y
+        sudo apt update -y
+        sudo apt install python3.11 -y
+        sudo apt install python3.11-venv -y
+    - name: Клонирование репозитория kubespray
+      git:
+        repo: https://github.com/kubernetes-sigs/kubespray.git
+        dest: /home/vagrant/kubespray
+    - name: Загрузка необходимых пакетов
+      shell: |
+        source myenv/bin/activate
+        pip install -r kubespray/requirements.txt
+    - name: Подготовка настроек плейбука кластера
+      shell: |
+        cd kubespray
+        cp -rfp inventory/sample inventory/mycluster
