@@ -1,0 +1,18 @@
+---
+- hosts: vm1
+  become: true
+  tasks:
+    - name: Add new user
+      user:
+        name: newuser
+        comment: "New User"
+        password: "{{ '1408' | password_hash('sha512') }}"
+    - name: Add new group
+      group:
+        name: newgroup
+    - name: Add user to new group
+      user:
+        name: newuser
+        group: newgroup
+        append: yes
+

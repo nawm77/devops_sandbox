@@ -6,6 +6,7 @@ nodes = [
 Vagrant.configure("2") do |config|
     nodes.each do |node|
         config.vm.box_check_update = false
+        config.vm.provision "file", source: "/Users/ilyachaynichkov/devops/linuxADM/lab4/folders.sh", destination: "/home/vagrant/folders.sh"
         config.vm.define node[:hostname] do |nodeconfig|
             nodeconfig.vm.box = node[:boxname]
             nodeconfig.vm.hostname = node[:hostname]

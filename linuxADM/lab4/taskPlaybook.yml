@@ -1,0 +1,23 @@
+- hosts: vm1
+  become: true
+  tasks:
+    - name: add new group - projects
+      group:
+        name: projects
+
+    - name: add developer user
+      user:
+        name: developer
+        comment: "Developer User"
+        password: developer
+        group: projects
+
+    - name: add manager user
+      user:
+        name: manager
+        comment: 'Manager user'
+        password: manager
+        group: projects
+
+    - name: create folders and files
+      command: bash /home/vagrant/folders.sh

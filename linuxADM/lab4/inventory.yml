@@ -1,0 +1,6 @@
+vm1:
+  hosts:
+    192.168.2.186:
+      ansible_connection: ssh
+      ansible_user: vagrant
+      ansible_ssh_private_key_file: /Users/ilyachaynichkov/devops/linuxADM/.vagrant/machines/ubuntu1-master/vmware_desktop/private_key

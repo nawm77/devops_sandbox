@@ -1,0 +1,7 @@
+- hosts: vm1
+  become: true
+  tasks:
+    - name: clean dirs
+      shell: |
+        cd ~
+        rm -r /shared
