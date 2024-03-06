@@ -5,3 +5,17 @@
       shell: |
         cd ~
         rm -r /shared
+    - name: Удалить пользователя developer
+      user:
+        name: developer
+        state: absent
+
+    - name: Удалить пользователя manager
+      user:
+        name: manager
+        state: absent
+
+    - name: Удалить группу projects
+      group:
+        name: projects
+        state: absent

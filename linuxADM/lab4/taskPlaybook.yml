@@ -9,15 +9,31 @@
       user:
         name: developer
         comment: "Developer User"
-        password: developer
+        password: "{{ 'developer' | password_hash('sha512') }}"
         group: projects
+        append: yes
 
     - name: add manager user
       user:
         name: manager
         comment: 'Manager user'
-        password: manager
+        password: "{{ 'manager' | password_hash('sha512') }}"
         group: projects
+        append: yes
 
     - name: create folders and files
       command: bash /home/vagrant/folders.sh
+    
+    - name: change dir owner
+      shell: |
+        sudo chown manager /shared/projects
+
+    - name: change dir group owner
+      shell: |
+        sudo chown :projects /shared/projects
+
+    - name: change project dir permissions
+      shell: sudo chmod -R 770 /shared/projects
+    
+    - name: set group to new files in projects
+      shell: chmod g+s /shared/projects
