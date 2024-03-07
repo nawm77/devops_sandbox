@@ -3,8 +3,8 @@
   tasks:
     - name: clean dirs
       shell: |
-        cd ~
-        rm -r /shared
+        rm -r /home/vagrant/shared
+        rm -r /home/vagrant/stage*
     - name: Удалить пользователя developer
       user:
         name: developer

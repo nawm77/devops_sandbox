@@ -22,18 +22,22 @@
         append: yes
 
     - name: create folders and files
+      become: false
       command: bash /home/vagrant/folders.sh
     
     - name: change dir owner
       shell: |
-        sudo chown manager /shared/projects
+        chown -R manager /home/vagrant/shared/project
+
+    - name: set group to new files in projects
+      shell: |
+        chmod g+s /home/vagrant/shared/project
 
     - name: change dir group owner
       shell: |
-        sudo chown :projects /shared/projects
+        chown -R :projects /home/vagrant/shared/project
 
     - name: change project dir permissions
-      shell: sudo chmod -R 770 /shared/projects
-    
-    - name: set group to new files in projects
-      shell: chmod g+s /shared/projects
+      shell: |
+        chmod -R ug+rw /home/vagrant/shared/project
+        chmod -R o-rx /home/vagrant/shared/project
