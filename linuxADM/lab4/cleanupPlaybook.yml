@@ -4,6 +4,7 @@
     - name: clean dirs
       shell: |
         rm -r /home/vagrant/shared
+#        todo сделать проверку через баш, что есть такие директории stage
         rm -r /home/vagrant/stage*
     - name: Удалить пользователя developer
       user:

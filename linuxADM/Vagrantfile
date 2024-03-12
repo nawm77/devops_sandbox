@@ -20,5 +20,8 @@ Vagrant.configure("2") do |config|
                 vmware.linked_clone = false
            end
         end
+        config.vm.provision "ansible" do |ansible|
+            ansible.playbook = "lab4/taskPlaybook.yml"
+        end
     end
 end

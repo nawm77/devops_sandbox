@@ -1,0 +1,44 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Update all packages in Ubuntu
+      become: true
+      apt:
+        update_cache: yes
+        cache_valid_time: 86400
+
+    - name: Установка pip для Python 3.8
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Установка venv для Python 3.8
+      apt:
+        name: python3.8-venv
+        state: present
+
+    - name: Добавление параметра net.ipv4.ip_forward в /etc/sysctl.conf
+      lineinfile:
+        path: /etc/sysctl.conf
+        line: "net.ipv4.ip_forward=1"
+        state: present
+      notify: Apply sysctl changes
+
+    - name: Отключение swap
+      command: swapoff -a
+      ignore_errors: true
+
+    - name: Копирование репозитория kubespray
+      shell: |
+        cd /home/vagrant
+        git clone https://github.com/kubernetes-sigs/kubespray
+
+    - name: Установка необходимых библиотек для запуска и создание виртуального окружения
+      shell: |
+        cd kubespray
+        git checkout release-2.20
+        pip install -r requirements.txt
+  handlers:
+    - name: Apply sysctl changes
+      command: sysctl --system

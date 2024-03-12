@@ -2,18 +2,18 @@
 - hosts: workers
   become: true
   tasks:
-    - name: Update all packages in Ubuntu
-      become: true
-      apt:
-        # upgrade: yes
-        update_cache: yes
-        cache_valid_time: 86400
-    - name: Установка Python 3.11
-      shell: |
-        sudo add-apt-repository ppa:deadsnakes/ppa -y
-        sudo apt update
-        sudo apt install python3.11 -y
-        sudo apt install python3.11-venv -y
+#    - name: Update all packages in Ubuntu
+#      become: true
+#      apt:
+#        # upgrade: yes
+#        update_cache: yes
+#        cache_valid_time: 86400
+#    - name: Установка Python 3.11
+#      shell: |
+#        sudo add-apt-repository ppa:deadsnakes/ppa -y
+#        sudo apt update
+#        sudo apt install python3.11 -y
+#        sudo apt install python3.11-venv -y
     - name: Добавление параметра net.ipv4.ip_forward в /etc/sysctl.conf
       lineinfile:
         path: /etc/sysctl.conf
