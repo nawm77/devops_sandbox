@@ -41,6 +41,3 @@
       shell: |
         chmod -R ug+rw /home/vagrant/shared/project
         chmod -R o-rx /home/vagrant/shared/project
-        
-        
-        

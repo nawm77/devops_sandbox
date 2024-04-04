@@ -1,0 +1,30 @@
+version: '3'
+services:
+  postgres_master:
+    container_name: postgres_master
+    image: custom_postgres:1.4
+    restart: unless-stopped
+    volumes:
+      - ./data:/var/lib/postgresql/data      
+      - ./init-script/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data-slave:/var/lib/postgresql/data-slave
+      - ./init-script:/etc/postgresql/init-script
+      - ./init-script/config/pg_hba.conf:/etc/postgresql/pg_hba.conf
+      - ./init-script/config/postgres.conf:/etc/postgresql/postgresql.conf
+    ports:
+      - "5432:5432"
+    env_file:
+      - ../.env
+
+  postgres_slave:
+    container_name: postgres_slave
+    image: custom_postgres:1.4
+    restart: always
+    volumes:
+      - ./data-slave:/var/lib/postgresql/data
+      - ./init-script/config/pg_hba.conf:/etc/postgresql/pg_hba.conf
+      - ./init-script/config/postgres.conf:/etc/postgresql/postgresql.conf
+    ports:
+      - "5434:5432"
+    env_file:
+      - ../.env

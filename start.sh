@@ -6,9 +6,10 @@ cqlsh -e "
 CREATE KEYSPACE student_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true; 
 CREATE TABLE student_keyspace.students (
     id uuid PRIMARY KEY,
-    age int,
-    email text,
-    name text
+    birthday int,
+    group text,
+    name text,
+    surname text
 ) WITH additional_write_policy = '99p'
     AND bloom_filter_fp_chance = 0.01
     AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
@@ -30,5 +31,4 @@ CREATE MATERIALIZED VIEW student_keyspace.students_by_age AS
 SELECT id, age, email, name
 FROM student_keyspace.students
 WHERE id IS NOT NULL AND age IS NOT NULL
-PRIMARY KEY (age, id);
-"
+PRIMARY KEY (age, id);"
