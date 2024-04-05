@@ -4,9 +4,9 @@ services:
     image: custom_postgres:1.4
     container_name: pg_master
     ports:
-      - 5432:5432
+      - "5432:5432"
     env_file: 
       - .env
     volumes:
       - ./data/backup:/backup
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./ini2.sql:/docker-entrypoint-initdb.d/ini2.sql
