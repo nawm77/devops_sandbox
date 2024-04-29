@@ -9,4 +9,13 @@ services:
       - .env
     volumes:
       - ./data/backup:/backup
-      - ./ini2.sql:/docker-entrypoint-initdb.d/ini2.sql
+      - ./ini2.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./scripts:/scripts
+#  generator:
+#    image: go-generator
+#    build:
+#      context: ./goGenerator/gen
+#    depends_on:
+#      - postgres
+#    env_file:
+#      - .env
